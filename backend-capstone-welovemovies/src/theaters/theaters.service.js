@@ -9,6 +9,7 @@ const reduceMovies = reduceProperties("theater_id", {
   rating: ["movies", null, "rating"],
   description: ["movies", null, "description"],
   image_url: ["movies", null, "image_url"],
+  movie_id: ["movies", null, "movie_id"],
 })
 
 // List all theaters and movies that are shown
@@ -16,7 +17,7 @@ function list() {
   return knex("theaters as t")
     .join("movies_theaters as mt", "t.theater_id", "mt.theater_id")
     .join("movies as m", "m.movie_id", "mt.movie_id")
-    .select("t.*", "m.title", "m.runtime_in_minutes", "m.rating", "m.description", "m.image_url")
+    .select("t.*", "m.title", "m.runtime_in_minutes", "m.rating", "m.description", "m.image_url", "m.movie_id")
     .then((data) => reduceMovies(data));
 }
 
